@@ -1,0 +1,2 @@
+# AI-BASED-Autonomous-Vehicles-Real-Time-Detection-and-Decision-Making
+Developed a real-time autonomous driving perception system using YOLOv8 (WIoU-optimized) and validated it in CARLA Simulator under complex traffic scenarios. Designed a safety-critical decision-making module that converts detected objects into STOP, SLOW, and GO commands using adaptive risk scoring in simulated driving environments. 
