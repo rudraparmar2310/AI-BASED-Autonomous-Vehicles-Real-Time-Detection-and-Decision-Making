@@ -51,27 +51,30 @@ The system runs on a producer-consumer model: frames are ingested from multiple 
 ---
 
 ## 📁 Project Structure
+
+```
 autopilot-ai/
-├── package.json # Frontend metadata, dependencies, scripts
-├── tsconfig.json # TypeScript compiler settings
-├── vite.config.ts # Vite asset bundling rules
-├── src/ # React Frontend Source Code
-│ ├── main.tsx # Mounting script for the DOM
-│ ├── index.css # Global Tailwind CSS definitions
-│ ├── components/ # Reusable UI widgets
-│ └── pages/ # Routed views (AiDetectionPage.tsx, etc.)
-└── backend/ # Python Backend Source Code
-├── main.py # Main FastAPI gateway and routers
-├── config.py # Global settings, directories, and variables
-├── fasterrcnn_detector.py # Core PyTorch model inference class
-├── tracker.py # Centroid Tracker & Line Crossings logic
-├── advanced_detector.py # Combines detection, tracking, and decisions
-├── stable_renderer.py # Handles visual styles, overlays, and HUDs
-├── frame_optimizer.py # Provides temporal smoothing filters
-├── video_processor.py # Handles threaded video parsing
-├── pygame_autopilot.py # Interactive CARLA loop with local UI window
-├── pygame_autopilot_no_camera.py # Headless CARLA loop
-└── test_fasterrcnn.py # PyTest suite for ML components
+├── package.json                      # Frontend metadata, dependencies, scripts
+├── tsconfig.json                     # TypeScript compiler settings
+├── vite.config.ts                    # Vite asset bundling rules
+├── src/                               # React frontend source code
+│   ├── main.tsx                      # Mounting script for the DOM
+│   ├── index.css                     # Global Tailwind CSS definitions
+│   ├── components/                   # Reusable UI widgets
+│   └── pages/                        # Routed views (AiDetectionPage.tsx, etc.)
+└── backend/                           # Python backend source code
+    ├── main.py                       # Main FastAPI gateway and routers
+    ├── config.py                     # Global settings, directories, and variables
+    ├── fasterrcnn_detector.py        # Core PyTorch model inference class
+    ├── tracker.py                    # Centroid tracker & line crossings logic
+    ├── advanced_detector.py          # Combines detection, tracking, and decisions
+    ├── stable_renderer.py            # Handles visual styles, overlays, and HUDs
+    ├── frame_optimizer.py            # Provides temporal smoothing filters
+    ├── video_processor.py            # Handles threaded video parsing
+    ├── pygame_autopilot.py           # Interactive CARLA loop with local UI window
+    ├── pygame_autopilot_no_camera.py # Headless CARLA loop
+    └── test_fasterrcnn.py            # PyTest suite for ML components
+```
 
 
 ---
