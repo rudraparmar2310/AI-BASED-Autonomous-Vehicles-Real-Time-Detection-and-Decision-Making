@@ -58,9 +58,76 @@ A production-ready, ultra-stable autonomous vehicle perception pipeline. It repl
 ```
 
 ---
-<p align="center">
-  <img src="https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO/main/docs/architecture.svg" width="100%">
-</p>
+Project/
+│
+├── 📂 frontend/
+│   ├── 📂 src/
+│   │   ├── 📂 components/
+│   │   ├── 📂 pages/
+│   │   ├── 📂 hooks/
+│   │   ├── 📂 services/
+│   │   ├── 📂 utils/
+│   │   ├── 📂 assets/
+│   │   ├── App.jsx
+│   │   └── main.jsx
+│   │
+│   ├── 📂 public/
+│   ├── package.json
+│   ├── vite.config.js
+│   └── .env
+│
+├── 📂 backend/
+│   ├── 📂 api/
+│   ├── 📂 controllers/
+│   ├── 📂 services/
+│   ├── 📂 models/
+│   ├── 📂 utils/
+│   ├── 📂 config/
+│   ├── 📂 scripts/
+│   ├── app.py
+│   ├── requirements.txt
+│   └── .env
+│
+├── 📂 ml/
+│   ├── 📂 models/
+│   ├── 📂 detection/
+│   ├── 📂 tracking/
+│   ├── 📂 preprocessing/
+│   ├── 📂 inference/
+│   ├── 📂 datasets/
+│   ├── 📂 weights/
+│   └── yolo_detector.py
+│
+├── 📂 carla/
+│   ├── 📂 client/
+│   ├── 📂 sensors/
+│   ├── 📂 vehicle/
+│   ├── 📂 autopilot/
+│   ├── 📂 world/
+│   └── carla_controller.py
+│
+├── 📂 gui/
+│   ├── main_window.py
+│   ├── detection_panel.py
+│   ├── carla_panel.py
+│   └── widgets.py
+│
+├── 📂 assets/
+│   ├── images/
+│   ├── icons/
+│   └── screenshots/
+│
+├── 📂 docs/
+│   ├── architecture.svg
+│   ├── workflow.svg
+│   └── README_IMAGES/
+│
+├── Dockerfile
+├── docker-compose.yml
+├── requirements.txt
+├── package.json
+├── LICENSE
+└── README.md
 ## ⚙️ Repository Structure
 
 ```
