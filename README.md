@@ -58,76 +58,46 @@ A production-ready, ultra-stable autonomous vehicle perception pipeline. It repl
 ```
 
 ---
-Project/
-│
-├── 📂 frontend/
-│   ├── 📂 src/
-│   │   ├── 📂 components/
-│   │   ├── 📂 pages/
-│   │   ├── 📂 hooks/
-│   │   ├── 📂 services/
-│   │   ├── 📂 utils/
-│   │   ├── 📂 assets/
-│   │   ├── App.jsx
-│   │   └── main.jsx
-│   │
-│   ├── 📂 public/
-│   ├── package.json
-│   ├── vite.config.js
-│   └── .env
-│
-├── 📂 backend/
-│   ├── 📂 api/
-│   ├── 📂 controllers/
-│   ├── 📂 services/
-│   ├── 📂 models/
-│   ├── 📂 utils/
-│   ├── 📂 config/
-│   ├── 📂 scripts/
-│   ├── app.py
-│   ├── requirements.txt
-│   └── .env
-│
-├── 📂 ml/
-│   ├── 📂 models/
-│   ├── 📂 detection/
-│   ├── 📂 tracking/
-│   ├── 📂 preprocessing/
-│   ├── 📂 inference/
-│   ├── 📂 datasets/
-│   ├── 📂 weights/
-│   └── yolo_detector.py
-│
-├── 📂 carla/
-│   ├── 📂 client/
-│   ├── 📂 sensors/
-│   ├── 📂 vehicle/
-│   ├── 📂 autopilot/
-│   ├── 📂 world/
-│   └── carla_controller.py
-│
-├── 📂 gui/
-│   ├── main_window.py
-│   ├── detection_panel.py
-│   ├── carla_panel.py
-│   └── widgets.py
-│
-├── 📂 assets/
-│   ├── images/
-│   ├── icons/
-│   └── screenshots/
-│
-├── 📂 docs/
-│   ├── architecture.svg
-│   ├── workflow.svg
-│   └── README_IMAGES/
-│
-├── Dockerfile
-├── docker-compose.yml
-├── requirements.txt
-├── package.json
-├── LICENSE
-└── README.md
+```mermaid
+flowchart TB
+    A["🚀 Project"]
+
+    A --> B["🎨 Frontend"]
+    B --> B1["src"]
+    B --> B2["public"]
+    B --> B3["components"]
+    B --> B4["pages"]
+    B --> B5["package.json"]
+
+    A --> C["⚙️ Backend"]
+    C --> C1["API"]
+    C --> C2["Controllers"]
+    C --> C3["Services"]
+    C --> C4["Models"]
+    C --> C5["requirements.txt"]
+
+    A --> D["🧠 Machine Learning"]
+    D --> D1["YOLOv8"]
+    D --> D2["Tracking"]
+    D --> D3["Inference"]
+    D --> D4["Weights"]
+
+    A --> E["🚗 CARLA"]
+    E --> E1["Vehicle"]
+    E --> E2["Sensors"]
+    E --> E3["World"]
+    E --> E4["Autopilot"]
+
+    A --> F["🖥️ Tkinter GUI"]
+    F --> F1["Dashboard"]
+    F --> F2["Detection Panel"]
+    F --> F3["CARLA Controls"]
+
+    A --> G["📄 Documentation"]
+    G --> G1["README.md"]
+    G --> G2["Architecture"]
+    G --> G3["Assets"]
+```
 ## ⚙️ Repository Structure
 
 ```
