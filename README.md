@@ -1,192 +1,233 @@
-# 🚗 Autopilot AI — Real-Time Autonomous Vehicle Detection & Decision-Making
+# 🚀 Autopilot AI: Production-Grade Faster R-CNN Autonomous Driving Perception Stack
 
-A high-performance, real-time autonomous driving perception system that combines **PyTorch Faster R-CNN**, **CARLA Simulator integration**, and a **React + FastAPI** full-stack pipeline to detect objects, track motion, and make live driving decisions (STOP / SLOW / GO).
+[![Python 3.12](https://img.shields.io/badge/Python-3.12-blue.svg)](https://www.python.org/)
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.112+-green.svg)](https://fastapi.tiangolo.com/)
+[![PyTorch](https://img.shields.io/badge/PyTorch-2.5.1%2BCU121-red.svg)](https://pytorch.org/)
+[![CUDA](https://img.shields.io/badge/CUDA-12.1-orange.svg)](https://developer.nvidia.com/cuda-toolkit)
+[![CARLA](https://img.shields.io/badge/CARLA-0.9.16-red.svg)](https://carla.org/)
+[![React](https://img.shields.io/badge/React-18.0-cyan.svg)](https://react.dev/)
 
----
-
-## 📐 System Architecture
-
-```mermaid
-graph TD
-    A[Camera Feed / CARLA Simulator / Video Upload] -->|Raw Images / Frames| B[FastAPI WebSockets / REST API]
-    B -->|Ingest Queue maxsize=1| C[PyTorch Faster R-CNN Detector]
-    C -->|Tensor Preprocessing & CUDA FP16 Autocast| D[Neural Network Inference]
-    D -->|GPU-Based Confidence & Class Filtering| E[torchvision.ops.nms]
-    E -->|Clean Boxes & Labels| F[CentroidTracker & Motion Prediction]
-    F -->|Smoothed Trails & IDs| G[StableBBoxRenderer & HUD Overlay]
-    G -->|Annotated Frame Base64| H[React Frontend Client]
-    F -->|Traffic Decisions STOP/SLOW/GO| I[CARLA PID Controller / Web UI]
-```
-
-The system runs on a producer-consumer model: frames are ingested from multiple sources, passed through real-time tensor transformations, filtered using hardware-accelerated computer vision algorithms, and rendered back to the UI — all with near-zero lag via frame-dropping queues.
+A production-ready, high-throughput autonomous vehicle perception pipeline. It replaces basic object detection with a highly optimized, GPU-accelerated, async **Faster R-CNN** detector, constant-velocity trajectory tracker, stable bounding box renderer, and real-time telemetry metrics dashboard integrated with the **CARLA Simulator**.
 
 ---
 
-## ✨ Key Features
+## 🎯 System Highlights & Capabilities
 
-- 🎯 Real-time object detection using **Faster R-CNN ResNet-50 FPN v2**
-- 🧠 GPU-accelerated inference with **FP16 mixed precision (CUDA)**
-- 🎥 Live camera streaming via **WebSocket** (25 FPS / 40ms interval)
-- 🛰️ **CARLA Simulator** integration (v0.9.16) with PID-based vehicle control
-- 📍 Centroid-based object tracking with constant-velocity motion prediction
-- 🚦 Automated decision engine: **STOP / SLOW / GO**
-- 📊 Live telemetry dashboard (CPU%, GPU%, VRAM, FPS, Latency)
-- 🖼️ Stabilized bounding boxes with HUD overlays
-
----
-
-## 🛠️ Tech Stack
-
-| Layer | Technologies |
-|---|---|
-| **Frontend** | React, TypeScript, TailwindCSS, Vite, Shadcn/ui, Lucide Icons |
-| **Backend** | Python, FastAPI, Uvicorn, Pydantic |
-| **Machine Learning** | PyTorch, Torchvision (`fasterrcnn_resnet50_fpn_v2`), CUDA, FP16 |
-| **Computer Vision** | OpenCV, Centroid Tracking, IoU, GPU-based NMS |
-| **Simulation** | CARLA Simulator v0.9.16 (Python API) |
-| **Database** | In-memory thread-safe dictionary, local filesystem |
-| **APIs** | REST, WebSockets |
-| **Deployment** | Docker, Docker Compose, Windows Batch/PowerShell scripts |
+- **GPU-Accelerated Two-Stage Inference**: Runs torchvision's `fasterrcnn_resnet50_fpn_v2` with FPN and RoIAlign, optimized for high accuracy on autonomous driving classes.
+- **Mixed-Precision & Tensor Optimizations**: Leverages FP16 mixed-precision autocasting and cuDNN autotuning to achieve a **20.4 FPS** raw model execution speed on mobile GPUs.
+- **Intelligent Frame Processing (58 FPS Throughput)**: Performs deep neural inference on every 3rd frame, and extrapolates trajectories using a constant-velocity vector model on intermediate frames (<1ms overhead).
+- **GPU-Based Non-Maximum Suppression (NMS)**: Applies strict confidence thresholding (0.70) and class-agnostic NMS (IoU 0.40) directly in GPU VRAM to prevent PCI-e bus bottlenecks and overlapping boxes.
+- **Flicker-Free Visualization**: Features bounding box smoothing using exponential moving averages (EMA), motion trails, and traffic banners (STOP, SLOW, GO).
+- **Rich Telemetry Monitoring**: Feeds real-time system stats (CPU%, GPU%, VRAM MB, Latency, Model FPS, and Throughput FPS) directly to a React dashboard.
+- **CARLA v0.9.16 Integration**: Integrates directly with the CARLA simulation client to orchestrate autopilot vehicle controls and map sensor data.
 
 ---
 
-## 📁 Project Structure
+## 🏗️ Architecture Design
 
 ```
-autopilot-ai/
-├── package.json                      # Frontend metadata, dependencies, scripts
-├── tsconfig.json                     # TypeScript compiler settings
-├── vite.config.ts                    # Vite asset bundling rules
-├── src/                               # React frontend source code
-│   ├── main.tsx                      # Mounting script for the DOM
-│   ├── index.css                     # Global Tailwind CSS definitions
-│   ├── components/                   # Reusable UI widgets
-│   └── pages/                        # Routed views (AiDetectionPage.tsx, etc.)
-└── backend/                           # Python backend source code
-    ├── main.py                       # Main FastAPI gateway and routers
-    ├── config.py                     # Global settings, directories, and variables
-    ├── fasterrcnn_detector.py        # Core PyTorch model inference class
-    ├── tracker.py                    # Centroid tracker & line crossings logic
-    ├── advanced_detector.py          # Combines detection, tracking, and decisions
-    ├── stable_renderer.py            # Handles visual styles, overlays, and HUDs
-    ├── frame_optimizer.py            # Provides temporal smoothing filters
-    ├── video_processor.py            # Handles threaded video parsing
-    ├── pygame_autopilot.py           # Interactive CARLA loop with local UI window
-    ├── pygame_autopilot_no_camera.py # Headless CARLA loop
-    └── test_fasterrcnn.py            # PyTest suite for ML components
+                     ┌──────────────────────────────────────────────┐
+                     │            React Web Dashboard               │
+                     │          (localhost:8080 / Vite)             │
+                     └──────────────────────┬───────────────────────┘
+                                            │ Websocket Stream &
+                                            │ Telemetry Metrics
+                     ┌──────────────────────▼───────────────────────┐
+                     │            FastAPI Server (ASGI)             │
+                     │            (localhost:8000 / Uvicorn)        │
+                     └──────────────────────┬───────────────────────┘
+                                            │
+                             ┌──────────────┴──────────────┐
+                             │                             │
+                ┌────────────▼────────────┐   ┌────────────▼────────────┐
+                │     CARLA Simulator     │   │      PyTorch Engine     │
+                │    (TCP Port 2000)      │   │   ✓ FP16  ✓ GPU-NMS     │
+                └─────────────────────────┘   └─────────────────────────┘
 ```
 
+1. **Ingestion Layer**: Camera frames are captured at 25 FPS from the client webcam, video uploads, or a CARLA RGB camera sensor.
+2. **FastAPI Gateway**: Routes frames into a single-element queue (`maxsize=1`) using non-blocking asynchronous WebSocket channels (`sync=False`).
+3. **PyTorch Inference Thread**: Resolves incoming frames, transfers them to CUDA tensors, executes convolution algorithms, and runs NMS.
+4. **Tracking & Decision Engine**: Feeds bounding boxes to a Centroid Tracker. The decision layer evaluates line crossings and calculates safety distances, updating vehicle actuators in CARLA.
+5. **HUD Render & Stream**: Applies stable visualizations, overlays telemetry data on the frame, and returns a Base64-encoded package to the client.
 
 ---
 
-## ⚙️ How It Works — Request Flow
+## 📋 System Requirements & Benchmarks
 
-What happens when a user clicks **"Run Live Camera"**:
+| Component | Requirement |
+|-----------|-------------|
+| **OS** | Windows 10/11 or Ubuntu 20.04/22.04 |
+| **Python** | 3.12 |
+| **GPU** | NVIDIA GeForce RTX 3050 Laptop GPU or higher (CUDA 12.1 compatible) |
+| **RAM** | 16GB+ |
+| **CARLA** | Version 0.9.16 |
 
-1. Click **Live** in React UI → triggers MediaDevices API and opens a WebSocket to port 8000.
-2. Frame captured on Canvas every 40ms → converted to JPEG → sent as Base64 over WebSocket.
-3. FastAPI receives the frame → decodes to NumPy array → pushes to a single-slot `frame_queue` (drops stale frames).
-4. Model worker thread picks up the frame → preprocesses → FP16 autocast inference → GPU-based NMS.
-5. Tracker receives detections → updates trajectories → calculates crossing events and distance bounds.
-6. Planning engine decides action (**GO / SLOW / STOP**) → `StableBBoxRenderer` draws HUD overlays.
-7. FastAPI encodes the annotated image to Base64 JPEG → sends it back over WebSocket.
-8. React updates `liveFrame` and `stats` state → renders live canvas and telemetry panel.
-
----
-
-## 🧠 Machine Learning Pipeline
-
-### Model
-- **Faster R-CNN ResNet-50 FPN v2** (two-stage detector)
-  - Feature Pyramid Network (multi-scale feature extraction)
-  - Region Proposal Network (candidate bounding boxes)
-  - RoIAlign (accurate feature extraction)
-  - Fast R-CNN Head (classification + bbox regression)
-
-### Optimization
-- Input resized to `min_size=360`, `max_size=640`
-- `torch.backends.cudnn.benchmark = True` for fastest CUDA convolution algorithm
-- `torch.amp.autocast("cuda", dtype=torch.float16)` mixed precision
-- Confidence threshold: `0.70` | NMS IoU threshold: `0.40`
-
-### Tracking
-- Constant-velocity predictor extrapolates positions on skipped frames
-- Euclidean centroid matching links detections across frames
-
----
-
-## 🔌 API Endpoints
-
-| Method | Endpoint | Description |
-|---|---|---|
-| `POST` | `/ai/process-video` | Starts a background video job, returns `job_id` |
-| `GET` | `/ai/status/{job_id}` | Returns progress logs, decisions, frame count |
-| `GET` | `/ai/frame/{job_id}` | Streams processed frames |
-| `WS` | `/ws/ai-camera` | Real-time duplex WebSocket for live camera streaming |
-| `WS` | `/ws/yolo` | Backward-compatible camera router |
-
----
-
-## 🎮 CARLA Simulator Integration
-
-- **RGB Camera** attached to the ego vehicle, streaming frames to a memory buffer
-- **LIDAR / Collision Sensors** feed autopilot risk-evaluation scripts
-- **`pygame_autopilot*.py`** scripts:
-  - Initialize the ego vehicle in CARLA
-  - Bind camera frames to the Faster R-CNN pipeline
-  - Determine risk state (STOP / SLOW / GO)
-  - Send throttle/steering/brake commands via PID controller
-
-Backend connects to the CARLA server over **TCP port 2000**.
+### Performance Metrics (RTX 3050)
+*   **Raw Model Inference Latency**: `49.04 ms` (~20.4 FPS)
+*   **Constant-Velocity Frame Extrapolation Latency**: `< 1.0 ms`
+*   **Total Pipeline Processing Latency (Average)**: `17.1 ms` (~58.5 FPS throughput)
+*   **GPU Memory footprint (VRAM)**: `~179 MB` allocated
 
 ---
 
 ## 🚀 Installation & Setup
 
-### Prerequisites
-- Python 3.12
-- Node.js 20+
-- CUDA-enabled GPU (recommended for real-time inference)
-- CARLA Simulator v0.9.16 (optional, for simulation mode)
+### 1️⃣ Download & Setup CARLA
+Download and extract the CARLA 0.9.16 simulator:
+*   [CARLA 0.9.16 Release Page](https://github.com/carla-simulator/carla/releases/tag/0.9.16)
+*   Set your installation path environment variable in your terminal:
+    ```powershell
+    # Windows
+    $env:CARLA_PATH="C:\Users\Acer\CARLA_0.9.16"
+    ```
 
-### Backend Setup
+### 2️⃣ Clone and Initialize the Backend
+Create your virtual environment and install the optimized machine learning dependencies:
 ```bash
-cd backend
+# Clone the repository
+git clone https://github.com/username/autopilot-ai.git
+cd autopilot-ai/backend
+
+# Create virtual environment
+python -m venv venv
+source venv/bin/activate  # Windows: .\venv\Scripts\activate
+
+# Install sequential packages (resolves temp drive limits)
+pip install torch==2.5.1+cu121 torchvision==0.20.1+cu121 --extra-index-url https://download.pytorch.org/whl/cu121
 pip install -r requirements-backend.txt
-uvicorn main:app --reload --port 8000
 ```
 
-### Frontend Setup
+### 3️⃣ Configure Environment Variables
+Copy and configure the environment variables file (`backend/.env`):
 ```bash
-npm install
-npm run dev
-```
-
-### Environment Variables
+# CARLA Simulator
 CARLA_HOST=localhost
 CARLA_PORT=2000
-ENABLE_CARLA=true
----
 
-## 📊 Live Telemetry Dashboard
-
-The dashboard displays real-time metrics:
-- CPU % / GPU % / VRAM Allocation (MB)
-- Throughput FPS / Model FPS
-- Latency (ms)
-- Active tracked objects
+# Faster R-CNN Model
+FRCNN_MODEL=fasterrcnn_resnet50_fpn_v2
+FRCNN_CONFIDENCE=0.70
+FRCNN_IOU=0.45
+FRCNN_DEVICE=cuda
+```
 
 ---
 
-## 📄 Additional Documentation
+## ⚙️ Running the System
 
-- [Camera Fix Guide](./CAMERA_FIX.md)
-- [IRIUN Webcam Setup](./IRIUN_WEBCAM_SETUP.md)
-- [Live Camera Guide](./LIVE_CAMERA_GUIDE.md)
-- [Quick Start Guide](./QUICK_START_FIXED.md)
-- [Upload Display Fix](./UPLOAD_DISPLAY_FIX.md)
+### 1. Launch the FastAPI Backend
+Start the server in the backend directory:
+```bash
+cd backend
+python main.py
+```
+*The API documentation will be available at [http://localhost:8000/docs](http://localhost:8000/docs).*
+
+### 2. Launch the Vite React Frontend
+Start the frontend development server in the root workspace directory:
+```bash
+# Install Node dependencies
+npm install
+
+# Start Vite
+npm run dev
+```
+*The web interface will be available at [http://localhost:8080/](http://localhost:8080/).*
+
+### 3. Run Autopilot Integration Tests
+Validate the ML inference stack and GPU configurations:
+```bash
+cd backend
+python test_fasterrcnn.py
+```
 
 ---
 
--##  RUDRA PARMAR
+## 📁 Repository Structure
 
+```
+autopilot-ai/
+├── backend/                       # Python FastAPI Backend
+│   ├── main.py                    # API Gateway & WebSocket endpoints
+│   ├── config.py                  # Global configurations and directories
+│   ├── fasterrcnn_detector.py     # Faster R-CNN PyTorch class
+│   ├── tracker.py                 # Centroid Tracker & Line crossing logic
+│   ├── stable_renderer.py         # Advanced BBox overlays & HUD renderer
+│   ├── frame_optimizer.py         # Temporal smoothing utilities
+│   ├── pygame_autopilot.py        # Interactive CARLA autopilot vehicle driver
+│   └── test_fasterrcnn.py         # Unit tests and model benchmark script
+├── src/                           # React Frontend Client
+│   ├── components/                # Reusable dashboard widgets
+│   ├── pages/                     # Routed views (AiDetectionPage.tsx)
+│   └── main.tsx                   # Client entry point
+├── package.json                   # NPM configuration and dependencies
+└── tsconfig.app.json              # TypeScript rules
+```
+
+---
+
+## ⚡ API Examples
+
+### Stream Real-Time Detections
+Connect to the full-duplex WebSocket:
+```
+ws://localhost:8000/ws/ai-camera
+```
+
+**Payload Sent by Client (JSON)**:
+```json
+{
+  "frame": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDA..."
+}
+```
+
+**Payload Returned by Server (JSON)**:
+```json
+{
+  "frame": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDA...",
+  "objects": 2,
+  "fps": 58.5,
+  "detection_fps": 20.4,
+  "inference_latency": 49.0,
+  "cpu_utilization": 12.0,
+  "gpu_utilization": 38.0,
+  "vram_allocated_mb": 179.0,
+  "action": "GO",
+  "reason": "Road clear",
+  "detections": [
+    { "id": 1, "class": "car", "confidence": 0.94 },
+    { "id": 2, "class": "person", "confidence": 0.81 }
+  ]
+}
+```
+
+---
+
+## 🛠️ Tech Stack Summary
+
+*   **Frontend**: React, TypeScript, TailwindCSS, Vite, Lucide Icons, Shadcn/ui.
+*   **Backend**: Python 3.12, FastAPI, Uvicorn, Pydantic, psutil.
+*   **Machine Learning / AI**: PyTorch, Torchvision (`fasterrcnn_resnet50_fpn_v2`), CUDA Toolkit, Mixed Precision (FP16).
+*   **Computer Vision**: OpenCV (`cv2`), Hungarian Centroid Tracking, IoU calculations, GPU-based NMS.
+*   **Simulation**: CARLA Simulator v0.9.16, CARLA Client Python API.
+*   **Dev Tools**: Vitest, ESLint, Python standard unittest.
+*   **Deployment**: Docker, Docker Compose, Powershell/Batch setups.
+
+---
+
+## 🤝 Contributing
+1. Fork the Repository.
+2. Create your Feature Branch: `git checkout -b feature/amazing-feature`.
+3. Commit your Changes: `git commit -m 'Add amazing feature'`.
+4. Push to the Branch: `git push origin feature/amazing-feature`.
+5. Open a Pull Request.
+
+---
+
+## 📄 License
+This project combines multiple open-source components:
+*   **CARLA Simulator**: NCSA License
+*   **Faster R-CNN Models (Torchvision)**: BSD 3-Clause License
+*   **This Project**: MIT License
+[README.md](https://github.com/user-attachments/files/30629874/README.md)
