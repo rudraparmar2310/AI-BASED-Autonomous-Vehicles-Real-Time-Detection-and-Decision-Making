@@ -58,7 +58,9 @@ A production-ready, ultra-stable autonomous vehicle perception pipeline. It repl
 ```
 
 ---
-
+<p align="center">
+  <img src="https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO/main/docs/architecture.svg" width="100%">
+</p>
 ## ⚙️ Repository Structure
 
 ```
