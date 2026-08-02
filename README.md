@@ -45,6 +45,18 @@ A production-ready, high-throughput autonomous vehicle perception pipeline. It r
                 └─────────────────────────┘   └─────────────────────────┘
 ```
 
+```mermaid
+graph TD
+    A[Camera Feed / CARLA Simulator / Video Upload] -->|Raw Images / Frames| B[FastAPI WebSockets / REST API]
+    B -->|Ingest Queue maxsize=1| C[PyTorch Faster R-CNN Detector]
+    C -->|Tensor Preprocessing & CUDA FP16 Autocast| D[Neural Network Inference]
+    D -->|GPU-Based Confidence & Class Filtering| E[torchvision.ops.nms]
+    E -->|Clean Boxes & Labels| F[CentroidTracker & Motion Prediction]
+    F -->|Smoothed Trails & IDs| G[StableBBoxRenderer & HUD Overlay]
+    G -->|Annotated Frame Base64| H[React Frontend Client]
+    F -->|Traffic Decisions STOP/SLOW/GO| I[CARLA PID Controller / Web UI]
+```
+
 1. **Ingestion Layer**: Camera frames are captured at 25 FPS from the client webcam, video uploads, or a CARLA RGB camera sensor.
 2. **FastAPI Gateway**: Routes frames into a single-element queue (`maxsize=1`) using non-blocking asynchronous WebSocket channels (`sync=False`).
 3. **PyTorch Inference Thread**: Resolves incoming frames, transfers them to CUDA tensors, executes convolution algorithms, and runs NMS.
