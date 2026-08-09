@@ -1,5 +1,5 @@
 # Live Camera Fix - Smart Connect & Mobile Browser Support
-
+ 
 ## Problem
 When using Motorola Edge Smart Connect (or other limited browsers), the live camera feature fails with:
 ```
