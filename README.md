@@ -1,7 +1,5 @@
 [README.md](https://github.com/user-attachments/files/30631139/README.md)
 # 🚀 AI-Based Autonomous Vehicle Real-Time Detection and Decision Making
-<img width="1536" height="1024" alt="image" src="https://github.com/user-attachments/assets/aa3a2667-b150-478d-81e6-fe7faf958b0a" />
-
 
 [![Python 3.12](https://img.shields.io/badge/Python-3.12-blue.svg)](https://www.python.org/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.112+-green.svg)](https://fastapi.tiangolo.com/)
@@ -11,7 +9,7 @@
 [![CUDA](https://img.shields.io/badge/CUDA-12.1-orange.svg)](https://developer.nvidia.com/cuda-toolkit)
 [![CARLA](https://img.shields.io/badge/CARLA-0.9.16-red.svg)](https://carla.org/)
 [![React](https://img.shields.io/badge/React-18.0-cyan.svg)](https://react.dev/)
-<img width="1463" height="687" alt="image" src="https://github.com/user-attachments/assets/b1b94fea-a1f3-48d7-afd3-0fa6b950ecbb" />
+<img width="1536" height="1024" alt="image" src="https://github.com/user-attachments/assets/aa3a2667-b150-478d-81e6-fe7faf958b0a" />
 
 
 A production-ready, ultra-stable autonomous vehicle perception pipeline. It replaces sluggish two-stage detection with a highly optimized, GPU-accelerated **YOLOv8n AND FASTER R-CNN** pipeline, a hybrid **Intersection-over-Union (IoU)** tracker, and an interactive **CustomTkinter Desktop Dashboard** + **FastAPI/React web interfaces** integrated with the **CARLA Simulator**.
@@ -103,7 +101,7 @@ flowchart TB
     G --> G3["Assets"]
 ```
 ## ⚙️ Repository Structure
-
+<img width="1463" height="687" alt="image" src="https://github.com/user-attachments/assets/b1b94fea-a1f3-48d7-afd3-0fa6b950ecbb" />
 ```
 autopilot-ai/
 ├── backend/                       # Python Perception Stack & API
