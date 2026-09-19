@@ -1,5 +1,7 @@
 [README.md](https://github.com/user-attachments/files/30631139/README.md)
 # 🚀 AI-Based Autonomous Vehicle Real-Time Detection and Decision Making
+<img width="1536" height="1024" alt="image" src="https://github.com/user-attachments/assets/aa3a2667-b150-478d-81e6-fe7faf958b0a" />
+
 
 [![Python 3.12](https://img.shields.io/badge/Python-3.12-blue.svg)](https://www.python.org/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.112+-green.svg)](https://fastapi.tiangolo.com/)
