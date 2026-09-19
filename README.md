@@ -1,5 +1,5 @@
 [README.md](https://github.com/user-attachments/files/30631139/README.md)
-# 🚀 Autopilot AI: Professional YOLOv8 Autonomous Driving Perception Stack & Desktop UI
+# 🚀 AI-Based Autonomous Vehicle Real-Time Detection and Decision Making
 
 [![Python 3.12](https://img.shields.io/badge/Python-3.12-blue.svg)](https://www.python.org/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.112+-green.svg)](https://fastapi.tiangolo.com/)
@@ -10,7 +10,7 @@
 [![CARLA](https://img.shields.io/badge/CARLA-0.9.16-red.svg)](https://carla.org/)
 [![React](https://img.shields.io/badge/React-18.0-cyan.svg)](https://react.dev/)
 
-A production-ready, ultra-stable autonomous vehicle perception pipeline. It replaces sluggish two-stage detection with a highly optimized, GPU-accelerated **YOLOv8** pipeline, a hybrid **Intersection-over-Union (IoU)** tracker, and an interactive **CustomTkinter Desktop Dashboard** + **FastAPI/React web interfaces** integrated with the **CARLA Simulator**.
+A production-ready, ultra-stable autonomous vehicle perception pipeline. It replaces sluggish two-stage detection with a highly optimized, GPU-accelerated **YOLOv8n AND FASTER R-CNN** pipeline, a hybrid **Intersection-over-Union (IoU)** tracker, and an interactive **CustomTkinter Desktop Dashboard** + **FastAPI/React web interfaces** integrated with the **CARLA Simulator**.
 
 ---
 
