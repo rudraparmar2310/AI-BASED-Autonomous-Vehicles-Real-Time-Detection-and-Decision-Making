@@ -136,7 +136,7 @@ autopilot-ai/
 | **CARLA** | Version 0.9.16 |
 
 ---
-
+<img width="1463" height="687" alt="image" src="https://github.com/user-attachments/assets/b1b94fea-a1f3-48d7-afd3-0fa6b950ecbb" />
 ## 🚀 Quick Start Guide
 
 ### 1️⃣ Install Dependencies
