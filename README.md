@@ -11,6 +11,8 @@
 [![CUDA](https://img.shields.io/badge/CUDA-12.1-orange.svg)](https://developer.nvidia.com/cuda-toolkit)
 [![CARLA](https://img.shields.io/badge/CARLA-0.9.16-red.svg)](https://carla.org/)
 [![React](https://img.shields.io/badge/React-18.0-cyan.svg)](https://react.dev/)
+<img width="1463" height="687" alt="image" src="https://github.com/user-attachments/assets/b1b94fea-a1f3-48d7-afd3-0fa6b950ecbb" />
+
 
 A production-ready, ultra-stable autonomous vehicle perception pipeline. It replaces sluggish two-stage detection with a highly optimized, GPU-accelerated **YOLOv8n AND FASTER R-CNN** pipeline, a hybrid **Intersection-over-Union (IoU)** tracker, and an interactive **CustomTkinter Desktop Dashboard** + **FastAPI/React web interfaces** integrated with the **CARLA Simulator**.
 
