@@ -13,6 +13,10 @@
 
 
 A production-ready, ultra-stable autonomous vehicle perception pipeline. It replaces sluggish two-stage detection with a highly optimized, GPU-accelerated **YOLOv8n AND FASTER R-CNN** pipeline, a hybrid **Intersection-over-Union (IoU)** tracker, and an interactive **CustomTkinter Desktop Dashboard** + **FastAPI/React web interfaces** integrated with the **CARLA Simulator**.
+<img width="1915" height="1015" alt="image" src="https://github.com/user-attachments/assets/0b86f4ae-8b7f-4c27-a2fc-cb0b353a5176" />
+<img width="1908" height="1012" alt="Screenshot 2026-10-11 003530" src="https://github.com/user-attachments/assets/f2c58e3b-d882-4015-992a-1bb134de049d" />
+
+
 
 ---
 
