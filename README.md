@@ -215,5 +215,5 @@ GPU Memory Reserv: 90.00 MB
 ## 📄 License
 This project is licensed under the **MIT License**.
 Includes open-source components from:
-- **Ultralytics YOLOv8**: AGPL-3.0 License
+- **Ultralytics YOLOv8n and Faster R-CNN**: AGPL-3.0 License
 - **CARLA Simulator**: NCSA License
