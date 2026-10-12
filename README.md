@@ -135,7 +135,7 @@ autopilot-ai/
 |-----------|-------------|
 | **OS** | Windows 10/11 or Ubuntu 20.04/22.04 |
 | **Python** | 3.12 |
-| **GPU** | NVIDIA GTX 1660 / RTX 3050 Laptop or higher (CUDA 12.1 compatible) |
+| **GPU** | NVIDIA RTX 3050 Laptop or higher (CUDA 12.1 compatible) |
 | **RAM** | 16 GB+ |
 | **CARLA** | Version 0.9.16 |
 
